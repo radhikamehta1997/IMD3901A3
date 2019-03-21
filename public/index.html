@@ -9,9 +9,16 @@
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
 
+      <!-- Models -->
+      <a-asset>
+        <a-asset-item id="object" src="/models/globe.obj"></a-asset-item>
+        
+      </a-asset>
+      <a-obj-model src="#object" ></a-obj-model>
+
       <!-- "button" -->
-    <a-entity id="refresh-button-1" geometry="primitive: box" material="color: red" position="-4 0 -2"></a>
-    <a-entity id="refresh-button-2" geometry="primitive: sphere" material="color: green" position="-0.23 0 2.208"></a>
+      <a-entity id="refresh-button-1" geometry="primitive: box" material="color: red" position="-4 0 -2"></a>
+      <a-entity id="refresh-button-2" geometry="primitive: sphere" material="color: green" position="-0.23 0 2.208"></a>
       <a-entity id="refresh-button-3" geometry="primitive: cylinder" material="color: yellow" position="-0.02 0 2.746"></a>
     </a-scene>
     
