@@ -1,46 +1,120 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-    <!--<script src="/js/spawnShape.js"></script>-->
-  
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <!-- DOM Elements -->
+    <script>
+      $ = (sel) => document.querySelector(sel)
+      $$ = (sel) => document.querySelectorAll(sel)
+      on = (elem, type, hand) => elem.addEventListener(type,hand)
+    </script>
+
   </head>
   <body>
-    <a-scene>
+    <a-scene physics ="debug:true";>
        
       <!-- Plane and Sky -->
       
       <a-sky color="#ECECEC"></a-sky>
 
-      <!--camera and cursor-->
-      <a-scene stats>
-        <a-camera>
-          <a-cursor></a-cursor> 
-        </a-camera>
-        </a-scene>
+      <a-entity camera look-controls="pointerLockEnabled: true" position="0 1.5 0">
+        <a-cursor></a-cursor>
+        <a-entity position="0 0 -3" id="weapon">
+          <a-box color='blue' width='0.25' height='0.5' depth='3' static-body></a-box>
+       </a-entity>  
+        <a-text id="score" value="Score" position="-0.2 -0.5 -1" color="black" width="5" anchor="left"></a-text>
+</a-entity>
+        </a-entity>
+        <!--Score Script-->
+        <script>
+          
 
-          <!--Mole-->
+        let hit = false
+        let resetValue = 0
+        const resetMole = () => {
+          clearTimeout (resetValue)
+          $("#mole").body.position.set(0, 0.6, -4)
+          $("#mole").body.velocity.set(0, 5, 0)
+          $("#mole").body.angularVelocity.set(0, 0, 0)
+
+          hit = false
+          resetValue = setTimeout (resetMole, 6000)
+
+
+          let score = 0;
+          let hit = false
+          let resetValue = 0
+          on ($("#weapon"), 'collide', (e) => {
+            const mole = $("#mole");
+            if (e.detail.body.id === mole.body.id && !hit){
+
+              hit = true
+              score = score + 1
+              clearTimeout (resetValue)
+              resetValue = setTimeout (resetMole, 2000)
+
+              $("#score").setAttribute('text','value','Score '+score)
+            }
+          
+         
+
+
+          })
+
+          setTimeout(resetMole, 3000)
+        }
+        
+        
+        </script>
+
+
+
+          <!--Moles-->
+        <a-entity logic>
           <a-entity id='mole'
-                    position="0 1 -4"
                     material="color:yellow;"
                     geometry="primitive:sphere; radius:0.5;"
+                    position="0.5 2 -3"
+                    dynamic-body
           ></a-entity>
-
+          <!--<a-entity id='mole2'
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+                    position="-2 2 -3"
+          ></a-entity>
+          <a-entity id='mole3'
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+                    position="4 2 -3"
+          ></a-entity>
+          <a-entity id='mole4'
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+                    position="4 4 -3"
+          ></a-entity>
+          <a-entity id='mole5'
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+                    position="-2 4 -3"
+          ></a-entity>
+          <a-entity id='mole6'
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+                    position="0.5 4 -3"
+          ></a-entity>-->
+        </a-entity>
           <!--plane-->
           <a-plane rotation="-90 0 0" 
                   width="300" 
                   height="100" 
                   color="red"
+                  static-body
                   ></a-plane>
           
+        
 
-          <a-entity position="0 0 -3" id="weapon">
-            <a-box color='blue'
-                   width='0.25'
-                   height='0.5'
-                   depth='3'
-            ></a-box>
 
-          </a-entity>
       </a-scene>
 
      
