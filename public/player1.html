@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <!--<script src="/js/spawnShape.js"></script>-->
+  
+  </head>
+  <body>
+    <a-scene>
+       
+      <!-- Plane and Sky -->
+      
+      <a-sky color="#ECECEC"></a-sky>
+
+      <!--camera and cursor-->
+      <a-scene stats>
+        <a-camera>
+          <a-cursor></a-cursor> 
+        </a-camera>
+        </a-scene>
+
+          <!--Mole-->
+          <a-entity id='mole'
+                    position="0 1 -4"
+                    material="color:yellow;"
+                    geometry="primitive:sphere; radius:0.5;"
+          ></a-entity>
+
+          <!--plane-->
+          <a-plane rotation="-90 0 0" 
+                  width="300" 
+                  height="100" 
+                  color="red"
+                  ></a-plane>
+          
+
+          <a-entity position="0 0 -3" id="weapon">
+            <a-box color='blue'
+                   width='0.25'
+                   height='0.5'
+                   depth='3'
+            ></a-box>
+
+          </a-entity>
+      </a-scene>
+
+     
+    
+  </body>
+</html>
